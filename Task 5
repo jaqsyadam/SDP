@@ -1,0 +1,26 @@
+// Адаптер
+public class CarSharingAdapter implements TaxiService {
+    private CarSharing carSharing;
+
+    public CarSharingAdapter(CarSharing carSharing) {
+        this.carSharing = carSharing;
+    }
+
+    @Override
+    public void requestTaxi(Passenger passenger) {
+        // Эмуляция аренды машины для пассажира через водителя
+        Driver driver = new Driver(); // Предположим, что водитель создается динамически
+        carSharing.rentFreeCar(driver);
+        driver.pickUpPassenger(passenger); // Предположим, что водитель забирает пассажира
+    }
+}
+
+// Клиентский код
+public static void main(String[] args) {
+    Passenger passenger = new Passenger();
+    Car car = new Car();
+    CarSharing carSharing = new CarSharing(car);
+    
+    TaxiService taxiService = new CarSharingAdapter(carSharing);
+    taxiService.requestTaxi(passenger);
+}
